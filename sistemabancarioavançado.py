@@ -2,8 +2,7 @@ import CPF,listadecontas as loc
 cpf=""
 login = False
 
-class contabancariaOBJ():
-    open
+class contabancariaOBJ():
     def __init__(self):
         self.saldo = 0
         self.nome = None
