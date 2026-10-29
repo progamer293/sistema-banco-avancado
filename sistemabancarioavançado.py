@@ -2,7 +2,8 @@ import CPF,listadecontas as loc
 cpf=""
 login = False
 
-class contabancariaOBJ():
+class contabancariaOBJ():
+
     def __init__(self):
         self.saldo = 0
         self.nome = None
@@ -76,7 +77,7 @@ def menuFUN():
 
     def mainmenuFUN():
         ContaAtual = loc.listadecontas[cpf]
-        match int(input("escolha entre|1 transferir|2 ver saldo|3 fazer deposito|4 verificar informaçoes|5 sair da conta")):
+        match int(input("escolha entre|1 transferir|2 ver saldo|3 fazer deposito|4 verificar informaçoes|5 alterar informações|6 sair da conta")):
             case 1:
                 ContaAtual.transferir(int(input("insira o valor da transferencia se o valor for maior do que o que tiver na conta, a operaçao nao sera realizada")))
 
@@ -96,11 +97,32 @@ def menuFUN():
                 print(f"chaves pix atuais: {ContaAtual.chavepix}")
                 print(f"cpf cadastrado: {ContaAtual.cpf}")
             case 5:
-                ContaAtual = None
-                global login
+                print("1 nome | 2 email| 3 celular| 4 chave pix")
+                escolhas = input("qual informação gostaria de mudar, separe-as con virgula, exp: 1,3,4,2")
+                escolhas = escolhas.split(",")
+                if "1" in escolhas:
+                    ContaAtual.nome = input("insira o novo nome")
+                    
+                if "2" in escolhas:
+                    if ContaAtual.email != '':
+                        ContaAtual.email = input("insira o novo email")
 
-    loginFUN()
+                    else: ContaAtual.email = input("insira o email para veincular a esta conta")
+
+                if "3" in escolhas:
+                    if ContaAtual != '':
+                        ContaAtual.celular = input("insira o novo numero")
+
+                    else: ContaAtual.celular = input("insira o numero para veincular a esta conta")
+
+                if "4" in escolhas:
+                    ContaAtual.chavepix = input("insira a nova chave pix")
+            case 6:
+                global login 
+                ContaAtual = None
+
     while True:
+        loginFUN()
         mainmenuFUN()
 
 menuFUN()
